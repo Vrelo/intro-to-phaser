@@ -103,7 +103,7 @@ function create() {
 	//  Our controls.
     cursors = game.input.keyboard.createCursorKeys();
 }
-
+var i = 0;
 function update() {
 	//  Collide the player and the mice with the platforms
     game.physics.arcade.collide(player, platforms);
@@ -119,22 +119,24 @@ function update() {
     {
         //  Move to the left
         player.body.velocity.x = -150;
-
+		i = 1;
         player.animations.play('left');
     }
-    else if (cursors.right.isDown)
+    if (cursors.right.isDown)
     {
         //  Move to the right
         player.body.velocity.x = 150;
-
+		i = 0;
         player.animations.play('right');
     }
-    else
+    if(!(cursors.right.isDown) && !(cursors.left.isDown))
     {
         //  Stand still
         player.animations.stop();
-
-        player.frame = 4;
+		if(i == 1)
+			player.frame = 1;
+		else if(i == 0)
+			player.frame = 4;
     }
     
     //  Allow the player to jump if they are touching the ground.
